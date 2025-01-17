@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button onclick="get_post_req()">Get req</button>
+<!-- <script>
+    function get_post_req(){
+        var url = "https://crud.teamrabbil.com/api/v1/CreateProduct";
+        //var config= {method: 'GET'};
+
+        var data = {
+                ProductName: "iPhone 6 Pro max",
+                ProductCode: "6",
+                Img: "https://example.com/image.jpg",
+                UnitPrice: "1500",
+                Qty: "1",
+                TotalPrice: "1500",
+            };
+
+        var config = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+
+
+        fetch(url, config)
+        .then(response => response.json())
+        .then(result => {console.log(result);})
+        .catch(error => {console.log('error', error);});
+    };
+get_post_req();
+</script> -->
+
+
+<script>
+    function get_post_req(){
+        var url = "https://crud.teamrabbil.com/api/v1/CreateProduct";
+        var data = {
+                ProductName: "Sunglass",
+                ProductCode: "99",
+        };
+
+        var config = {
+            method:'POST',
+            Headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(data)
+        };
+
+        fetch(url, config)
+        .then(response => response.json())
+        .then (result => {console.log(result);})
+
+
+    }
+</script>
+
+
+</body>
+</html>
