@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Update</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Product Update</h2>
+
+    <div >
+        <label for="productId">Product Id</label>
+        <input readonly type="text" class="form-control"  id="productId" required>
+    </div>
+
+        <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" class="form-control"  id="productName" required>
+        </div>
+        <div class="form-group">
+            <label for="productCode">Product Code</label>
+            <input type="text" class="form-control" id="productCode" required>
+        </div>
+        <div class="form-group">
+            <label>Product Image</label>
+            <input type="text" class="form-control" id="ProdImage" required>
+        </div>
+        <div class="form-group">
+            <label for="unitPrice">Unit Price</label>
+            <input type="number" class="form-control" id="unitPrice" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" class="form-control" id="quantity" required>
+        </div>
+        <div class="form-group">
+            <label>Total Price</label>
+            <input type="number" class="form-control" id="TotalPrice" required>
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="editNewProduct()">Update</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+
+getProductInfo()
+async function  getProductInfo(params) {
+
+    const urlparms = new URLSearchParams(window.location.search)
+    console.log(urlparms)
+    const id = urlparms.get('id');
+
+    let url = `https://crud.teamrabbil.com/api/v1/ReadProductByID/${id}`
+    let response = await axios.get(url)
+    
+    let data = response.data['data'][0]
+    console.log(data)
+
+document.getElementById('productId').value = id;
+document.getElementById('productName').value = data['ProductName'];
+document.getElementById('productCode').value = data['ProductCode'];
+document.getElementById('ProdImage').value = data['Img'];
+document.getElementById('unitPrice').value = data['UnitPrice'];
+document.getElementById('quantity').value = data['Qty'];
+document.getElementById('TotalPrice').value = data['TotalPrice'];
+
+
+
+}
+
+
+
+//update Functions
+
+async function editNewProduct() {
+    let productId = document.getElementById('productId').value;
+    let ProductName = document.getElementById('productName').value;
+    let ProductCode = document.getElementById('productCode').value;
+    let ProductImg = document.getElementById('ProdImage').value;
+    let UnitPrice = document.getElementById('unitPrice').value;
+    let Qty = document.getElementById('quantity').value;
+    let TotalPrice = document.getElementById('TotalPrice').value;
+
+    let obj = {
+        "Img": ProductImg,
+        "ProductCode": ProductCode,
+        "ProductName": ProductName,
+        "Qty": Qty,
+        "TotalPrice": TotalPrice,
+        "UnitPrice": UnitPrice
+    };
+
+    let URL = `https://crud.teamrabbil.com/api/v1/UpdateProduct/${productId}`;
+
+        let response = await axios.post(URL, obj);
+        window.location = "index_demo.html";
+
+}
+
+</script>

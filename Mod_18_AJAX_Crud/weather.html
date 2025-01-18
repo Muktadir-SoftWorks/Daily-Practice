@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+    <h1>Weather Info</h1>
+    <button onclick="fetchWeather()">Get Weather</button>
+    <p id="weather"></p>
+
+    <script>
+        function fetchWeather() {
+            const url = "https://api.open-meteo.com/v1/forecast?latitude=40.71&longitude=-74.01&hourly=temperature_2m,precipitation";
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const temperature = data.hourly.temperature_2m[0]; // First hourly temperature
+                    const precipitation = data.hourly.precipitation[0]; // First hourly precipitation
+                    document.getElementById("weather").innerText = `Temperature: ${temperature}°C, Precipitation: ${precipitation} mm`;
+                })
+                .catch(error => {
+                    console.error("Error fetching weather:", error);
+                });
+        }
+    </script>
+</body>
+</html>
